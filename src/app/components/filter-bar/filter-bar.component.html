@@ -1,0 +1,111 @@
+<div id="search" class="row">
+  <form style="padding-top: 10px" (submit)="onTextSubmit()">
+    <div class="col-xs-5" style="padding-left: 10px">
+      <div class="row form-group" style="height: 22px; padding: 0px; margin-bottom: 0px">
+        <div class="col-xs-1" style="padding: 0px; width: 60px">
+          <label>Buscar:</label>
+        </div>
+        <div class="col-xs-2" style="padding: 0px; width: 110px; height: 20px">
+          <button type="button" (click)="setApplyFilter(false)"
+            style="padding: 0px; margin: 0px">Em toda a base</button>
+        </div>
+        <div class="col-xs-5" style="padding: 0px; height: 20px">
+          <button type="button" (click)="setApplyFilter(true)"
+            style="padding: 0px; margin: 0px">Nesta aba com filtros selecionados</button>
+        </div>
+      </div>
+      <div class="row form-group" style="height: 45px; margin-bottom: 10px;">
+        <input type="text" class="form-control" placeholder="Nome paciente, solicitante, prontuário, exame ou atendimento" style="background-color: #f2f2f2; border: 0px"
+              (keyup)="onTextSubmit($event.target.value)" [(ngModel)]="filterText" name="filterText">
+      </div>
+    </div>
+
+    <!--Data-->
+    <div class="col-xs-1 form-group" style="width: 170px; height: 77px; margin-bottom: 0px">
+      <label><b>Data</b></label><br />
+      <div class="multiselect">
+        <div class="selectBox" (click)="activeFilter.openOrClose('data', $event)">
+          <select name="data" style="height: 44px">
+            <option>{{ activeFilter.data.display }}</option>
+          </select>
+          <div class="overSelect"></div>
+        </div>
+        <div id="data" class="filter-options">
+          <div *ngFor="let option of activeFilter['data'].options; let i=index"  style="cursor: pointer"
+            (click)="activeFilter.setDateFromOption(i); activeFilter.openOrClose('data', $event);">
+            {{ option }}
+          </div>
+          <!--<div id="close-btn" (click)="activeFilter.openOrClose('data', $event)">Fechar</div>-->
+        </div>
+      </div>
+    </div>
+
+    <!--Status-->
+    <div class="col-xs-1 form-group" style="width: 170px; height: 77px; margin-bottom: 0px">
+      <label><b>Status</b></label><br />
+      <div class="multiselect">
+        <div class="selectBox" (click)="activeFilter.openOrClose('status', $event)">
+          <select name="status" style="height: 44px">
+            <option>Selecione</option>
+          </select>
+          <div class="overSelect"></div>
+        </div>
+        <div id="status" class="filter-options">
+          <u *ngIf="!activeFilter['status'].none" (click)="activeFilter.setAllOptions('status', false, $event)" style="cursor: pointer">Nenhum</u>
+          <u *ngIf="activeFilter['status'].none" (click)="activeFilter.setAllOptions('status', true, $event)" style="cursor: pointer">Todos</u>
+          <br />
+          <div *ngFor="let option of activeFilter['status'].options" (click)="activeFilter.flipOption('status', option);" style="cursor: pointer">
+            <input type="checkbox" style="margin: 0px" [checked]="option[1]"/> {{ option[0] }}
+          </div>
+          <!--<div id="close-btn" (click)="activeFilter.openOrClose('status', $event)">Fechar</div>-->
+        </div>
+      </div>
+    </div>
+
+    <!--Unidades-->
+    <div class="col-xs-1 form-group" style="width: 170px; height: 77px; margin-bottom: 0px">
+      <label><b>Unidades</b></label><br />
+      <div class="multiselect">
+        <div class="selectBox" (click)="activeFilter.openOrClose('unidades', $event)">
+          <select name="unidades" style="height: 44px">
+            <option>Selecione</option>
+          </select>
+          <div class="overSelect"></div>
+        </div>
+        <div id="unidades" class="filter-options">
+          <input type="text" placeholder="Digite o nome" (keyup)="onUnityFilter($event.target.value)" style="width: 100%" />
+          <u *ngIf="!activeFilter['unidades'].none" (click)="activeFilter.setAllOptions('unidades', false, $event)" style="cursor: pointer">Nenhum</u>
+          <u *ngIf="activeFilter['unidades'].none" (click)="activeFilter.setAllOptions('unidades', true, $event)" style="cursor: pointer">Todos</u>
+          <br />
+          <div *ngFor="let option of activeFilter['unidades'].options" (click)="activeFilter.flipOption('unidades', option);" style="cursor: pointer">
+            <p *ngIf="!unityFilter || option[0].toLowerCase().indexOf(unityFilter.toLowerCase()) !== -1" style="margin: 0px"><input type="checkbox" style="margin: 0px" [checked]="option[1]"/> {{ option[0] }}</p>
+          </div>
+          <!--<div id="close-btn" (click)="activeFilter.openOrClose('unidades', $event)">Fechar</div>-->
+        </div>
+      </div>
+    </div>
+
+    <!--Modalidade-->
+    <div class="col-xs-1 form-group" style="width: 170px; height: 77px; margin-bottom: 0px">
+      <label><b>Modalidade</b></label><br />
+      <div class="multiselect">
+        <div class="selectBox" (click)="activeFilter.openOrClose('modalidade', $event)">
+          <select name="modalidade" style="height: 44px">
+            <option>Selecione</option>
+          </select>
+          <div class="overSelect"></div>
+        </div>
+        <div id="modalidade" class="filter-options">
+          <u *ngIf="!activeFilter['modalidade'].none" (click)="activeFilter.setAllOptions('modalidade', false, $event)" style="cursor: pointer">Nenhum</u>
+          <u *ngIf="activeFilter['modalidade'].none" (click)="activeFilter.setAllOptions('modalidade', true, $event)" style="cursor: pointer">Todos</u>
+          <br />
+          <div *ngFor="let option of activeFilter['modalidade'].options" (click)="activeFilter.flipOption('modalidade', option);" 
+            style="height: 30px; padding: 5px; margin-top: 10px; background-color: #bcbcbc; cursor: pointer">
+            <input type="checkbox" style="margin: 0px" [checked]="option[1]"/> <b>{{ option[0] }}</b>
+          </div>
+          <!--<div id="close-btn" (click)="activeFilter.openOrClose('modalidade', $event)">Fechar</div>-->
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,25 @@
+<div class="col-xs-6" style="width: 827px; padding: 0px">
+  <div *ngFor="let tab of tabs; let i = index" (click)="onTabClick(i)">
+    <div *ngIf="selectedTab === i && tab.getNamed()" class="tab selected-tab" [style.width.%]="100/tabs.length">
+      <b *ngIf="i>=4" (click)="closeTab(i)" style="position: absolute; top: 0px; right: 10px">x</b>
+      <b>{{ tab.name }}</b>
+    </div>
+    <div *ngIf="selectedTab === i && !tab.getNamed()" class="tab selected-tab" [style.width.%]="100/tabs.length">
+      <b (click)="closeTab(i)" style="position: absolute; top: 0px; right: 10px">x</b>
+      <input type="text" placeholder="DIGITE NOME" (change)="onTabNaming(tab, $event.target.value)" style="width: 100%; background-color: inherit; border: 0px; text-align: center"/>
+    </div>
+    <div *ngIf="selectedTab !== i" class="tab" [style.width.%]="100/tabs.length" style="background-color: #fefefe;">
+      {{ tab.name }}
+    </div>
+  </div>
+</div>
+<div>
+  <div class="tab" style="background-color: #e4e4e4" [style.width.px]="60+tabs.length" [style.margin-left.px]="-tabs.length" (click)="addTab()">
+    <!--<img src="http://dxlfb468n8ekd.cloudfront.net/gsc/QRHXTZ/9a/ff/23/9aff23fc83b14539a6cd049f59e72240/images/home/u205.png?token=f020073012457c59344f34a1fa82ba88"
+      style="-webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg)">-->
+    (+)
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.tab {
+    /*height: 60px;*/
+    float: left;
+    position: relative;
+    text-align: center;
+    padding: 18px 0px 18px 0px;
+    border: 1px solid #cccccc;
+    border-bottom: 0px;
+    margin-right: -1px;
+    background-color: #ffffff;
+    -webkit-text-fill-color: #aeaeae;
+    box-shadow: 2px 2px rgba(219, 219, 219, 0.6);
+    cursor: pointer;
+}
+
+.selected-tab {
+    font-size: 1.1em;
+    padding: 25px 0px 18px 0px;
+    height: 68px; 
+    margin-top: -10px; 
+    background-color: #d7d7d7; 
+    z-index: 1;
+    -webkit-text-fill-color: #666666;
+}
+

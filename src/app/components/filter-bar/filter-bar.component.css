@@ -1,0 +1,20 @@
+#search {
+    background-color: #dadada;
+    -webkit-text-fill-color: #666666;
+    height: 90px
+}
+
+.filter-options {
+    width: 160px;
+    margin-left: -10px;
+    -webkit-text-fill-color: #666666;
+}
+
+#close-btn {
+    margin-top: 10px; 
+    background-color: #999999;
+    text-align: center;
+    -webkit-text-fill-color: #ffffff;
+    cursor: pointer;
+}
+

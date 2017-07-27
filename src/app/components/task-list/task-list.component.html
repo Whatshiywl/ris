@@ -1,0 +1,39 @@
+<div id="warning" class="row" style="background-color: #f2f2f2; margin: 12px 40px 0px 40px; padding: 4.5px; text-align: center; -webkit-text-fill-color: #666666">
+  <div style="float: left; width: 1490px; margin: 0px">
+    <b>Os resultados estão exibindo os 1.000 primeiros registros encontrados. </b>
+    Utilize os filtros acima para visualizar resultados mais específicos
+  </div>
+  <div style="float: left; width: 20px; cursor: pointer" (click)="closeWarning()">
+    X
+  </div>
+</div>
+<div>
+  <div class="row" style="margin-bottom: 10px">
+    <div *ngFor="let col of columns">
+      <div *ngIf="col[1]" class="header" [style.width.px]="col[2]" (click)="showColSelect($event)">
+        <b style="-webkit-text-fill-color: #666666; font-size: 12px">{{ col[0] }}</b>
+      </div>
+    </div>
+    <br />
+    <div id="col-select" [ngClass]="{'col-selector': colSelect}">
+      <div *ngFor="let col of columns" (click)="col[1]=!col[1]" style="cursor: pointer">
+        <input type="checkbox" style="margin: 0px" [checked]="col[1]" style="cursor: pointer"/> {{ col[0] }}
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngFor="let task of taskList" style="margin-bottom: 7px">
+    <div *ngFor="let col of columns">
+      <div *ngIf="col[1]" class="task" [style.background-color]="task.getBgColor()" [style.color]="task.getFontColor()" [style.width.px]="col[2]">
+        <div *ngIf="col[0]==='PACIENTE'" class="task-element">
+          <b>{{ task[col[3]].toUpperCase() }}</b>
+        </div>
+        <div *ngIf="col[0].indexOf('DATA') !== -1" class="task-element">
+          {{ dateToString(task[col[3]]) }}
+        </div>
+        <div *ngIf="col[0]!=='PACIENTE' && col[0].indexOf('DATA') === -1" class="task-element">
+          {{ task[col[3]] }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

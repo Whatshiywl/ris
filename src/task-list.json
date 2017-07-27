@@ -1,0 +1,13 @@
+[
+    {
+        "ID": "number",
+        "patient": "string",
+        "medic": "string",
+        "dateReg": "Date",
+        "dateDone": "Date",
+        "mod": "string",
+        "exam": "string",
+        "status": "string",
+        "sector": "string"
+    }
+]

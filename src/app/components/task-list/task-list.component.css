@@ -1,0 +1,39 @@
+#col-select {
+    position: absolute;
+    display: none;
+    background-color: #f2f2f2;
+    border: 1px solid #999999;
+}
+
+.col-selector {
+    position: "absolute";
+    padding: 10px;
+    background-color: #dadada;
+    border: 1px solid #999999;
+}
+
+.task {
+    height: 28px;
+    float: left; 
+    padding: 5px; 
+    padding-left: 10px; 
+    background-color: #eeeeee;
+}
+
+.task-element {
+    font-size: 13px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.header {
+    float: left; 
+    margin-top: 13px;
+    padding: 5px; 
+    padding-left: 10px; 
+    border: #cccccc solid 1px; 
+    border-top: 0px; 
+    border-right: 0px
+}
+

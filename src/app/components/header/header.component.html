@@ -1,0 +1,13 @@
+<div id="filter">
+  <div class="row">
+    <div class="col-xs-1" style="padding-bottom: 14px; padding-left: 0px; padding-right: 0px">
+      <img src="./../../../assets/RedeDorLogo.png" style="width: 109px; height: 43px" />
+    </div>
+    <div class="col-xs-4" style="padding-bottom: 14px">
+      <p style="margin: 0px; padding-left: 15px; -webkit-text-fill-color: #666666">Bem vindo,<br />
+      <b>{{ name }}</b> <a style="-webkit-text-fill-color: inherit; font-size: 0.8em" href="/home">Sair</a></p>
+    </div>
+    <ris-tabs (notifyTabClick)="onTabClick($event)"></ris-tabs>
+  </div>
+  <ris-filter-bar [activeTab]="selectedTab" (notifyFilterChange)="onFilterChange($event)"></ris-filter-bar>
+</div>
