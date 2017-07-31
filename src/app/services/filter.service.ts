@@ -127,25 +127,7 @@ export class FilterService {
     // console.log(filter);
     // return [null];
     return filter ? this.tasks.filter((task) => {
-      if(filter["text"]){
-        let text = filter["text"].toLowerCase();
-        if((task["patient"].toLowerCase().indexOf(text) === -1) 
-        &&(task["medic"].toLowerCase().indexOf(text) === -1) 
-        &&(task["prontuario"].toLowerCase().indexOf(text) === -1) 
-        &&(task["exam"].toLowerCase().indexOf(text) === -1) 
-        &&(task["ID"].toString().indexOf(text) === -1)) return false;
-      }
-      if(!filter["apply"]) return true;
-      if(filter["data"].length>0){
-        let startDate = moment(filter["data"][0]);
-        let endDate = moment(filter["data"][1]);
-        let date = moment(task["dateReg"]);
-        if(!date.isBetween(startDate, endDate, "days", "[]")) return false;
-      }
-      if(filter["status"].indexOf(task["status"]) === -1) return false;
-      if(filter["unidades"].indexOf(task["unity"]) === -1) return false;
-      if(filter["modalidade"].indexOf(task["mod"]) === -1) return false;
-      return true;
+      return filter.applyFilter(task);
     }) : this.tasks;
     // return this.http.get(this.taskListUrl)
     //   .map((response: Response) => <Task[]>response.json());
