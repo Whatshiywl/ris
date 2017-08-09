@@ -39,20 +39,27 @@ export class TaskTableComponent implements OnInit {
       this.rows.push(i);
       for(let j=0; j<10; j++){
         if(i==0){
-          this.headers[j] = "Headers " + j;
+          this.headers[j] = "Header " + j;
           this.cols.push(j);
           setTimeout(() => {
+            // Set heder widths
             let header = document.getElementById("th-" + j);
             let widthPx = this.getStyle(header, "width");
             let widthStr = widthPx.substr(0, widthPx.length-2);
             let width = parseInt(widthStr);
             this.colWidths.push(width);
+
+            // let right = header.getBoundingClientRect().right;
+            // console.log(right);
+            // let resizer = document.getElementById("res-" + j);
+            // resizer.style.left = (right-3) + "px";
           }, 100, j);
         }
         this.data[i][j] = "Data " + i + "." + j;
       }
     }
 
+    this.headers[2] = "Header 2 is a lot bigger";
     this.data[2][3] = "Data cell with humongously words"
 
     this.resizing = -1;
@@ -85,7 +92,7 @@ export class TaskTableComponent implements OnInit {
     let fSize = this.getStyle(header, "font-size");
     let fFam = this.getStyle(header, "font-family").split(",")[0];
     ctx.font = fSize + " " + "Helvetica Neue";
-    let minWidth = ctx.measureText(bigWord).width + 10; // 10px padding-left
+    let minWidth = ctx.measureText(bigWord).width + 20; // 20px padding
 
     let newWidth = this.resizeWidth+event.x-this.resizeFrom;
     if(newWidth < minWidth) return;
@@ -96,7 +103,7 @@ export class TaskTableComponent implements OnInit {
     // Ajust size of draggers
     let height = this.getStyle(header, "height");
     for(let i=0; i<this.cols.length; i++) {
-      let dragger = document.getElementById("drg-" + i);
+      let dragger = document.getElementById("res-" + i);
       dragger.style.height = height;
     }
   }

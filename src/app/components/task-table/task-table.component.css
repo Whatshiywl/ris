@@ -17,7 +17,6 @@ tr {
 }
 
 th {
-    /*width: 120px;*/
     position: relative;
     background-color: #eeeeee;
     padding-left: 10px;
@@ -25,9 +24,9 @@ th {
     border-width: 0px 1px 1px 0px;
     border-color: #cccccc;
     white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    height: 30px
+    /*overflow: hidden; */ /*Applying this somehow hides resizers from left column*/
+    /*text-overflow: ellipsis;*/
+    height: 30px;
 }
 
 td {
