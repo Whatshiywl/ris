@@ -24,23 +24,32 @@ export class TaskTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // Populate headers
     this.headers = [];
+    for(let i=0; i<10; i++) {
+      this.headers[i] = "Header " + i;
+    }
+
+    // Set header widths
+    this.colWidths = JSON.parse(localStorage.getItem("colWidths"));
+    if(!this.colWidths) {
+      this.colWidths = [];
+      setTimeout(() => {
+        for(let i=0; i<this.headers.length; i++) {
+          let header = document.getElementById("th-" + i);
+          let widthPx = this.getStyle(header, "width");
+          let widthStr = widthPx.substr(0, widthPx.length-2);
+          let width = parseInt(widthStr);
+          this.colWidths.push(width);
+        }
+      }, 100);
+    }
+
+    // Populate Data
     this.data = [];
-    this.colWidths = [];
     for(let i=0; i<5; i++){
       this.data[i] = [];
       for(let j=0; j<10; j++){
-        if(i==0){
-          this.headers[j] = "Header " + j;
-          setTimeout(() => {
-            // Set heder widths
-            let header = document.getElementById("th-" + j);
-            let widthPx = this.getStyle(header, "width");
-            let widthStr = widthPx.substr(0, widthPx.length-2);
-            let width = parseInt(widthStr);
-            this.colWidths.push(width);
-          }, 100, j);
-        }
         this.data[i][j] = "Data " + i + "." + j;
       }
     }
@@ -97,6 +106,7 @@ export class TaskTableComponent implements OnInit {
   onHostMouseUp() {
     this.resizing = -1;
     document.body.style.cursor = this.resizeCursor;
+    localStorage.setItem("colWidths", JSON.stringify(this.colWidths));
   }
 
   updateTableWidth() {
