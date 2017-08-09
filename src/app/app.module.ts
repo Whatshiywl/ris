@@ -12,6 +12,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 
 import { FilterService } from "./services/filter.service";
+import { TaskTableComponent } from './components/task-table/task-table.component';
 
 var appRoutes: Routes = [
   {path:"home", component: HomeComponent},
@@ -27,6 +28,7 @@ var appRoutes: Routes = [
     TaskListComponent,
     HeaderComponent,
     TabsComponent,
+    TaskTableComponent,
   ],
   imports: [
     BrowserModule,
