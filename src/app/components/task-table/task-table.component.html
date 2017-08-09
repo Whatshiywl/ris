@@ -1,17 +1,19 @@
 <div>
   <table id="table">
     <tr>
-      <th *ngFor="let header of headers; let i = index" id="th-{{i}}" [width]="colWidths[i]">
-        {{ header }}
-        <div id="res-{{i}}" class="resizer" 
-          (mousedown)="startResizing(i, $event)"></div>
+      <th *ngFor="let col of colOrder" id="th-{{col}}" 
+        [width]="colWidths[col]" (mousedown)="startDragging(col, $event)">
+        {{ headers[col] }}
+        <div id="res-{{col}}" class="resizer" 
+          (mousedown)="startResizing(col, $event)"></div>
       </th>
     </tr>
 
     <tr *ngFor="let row of data">
-      <td *ngFor="let cell of row; let i = index" id="td-{{i}}" [width]="colWidths[i]">
-        {{ cell }}
+      <td *ngFor="let col of colOrder" id="td-{{col}}" [width]="colWidths[col]">
+        {{ row[col] }}
       </td>
     </tr>
   </table>
+  <!--<tt-fake-column></tt-fake-column>-->
 </div>

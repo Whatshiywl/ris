@@ -13,6 +13,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
 
 import { FilterService } from "./services/filter.service";
 import { TaskTableComponent } from './components/task-table/task-table.component';
+import { FakeColumnComponent } from './components/task-table/fake-column/fake-column.component';
 
 var appRoutes: Routes = [
   {path:"home", component: HomeComponent},
@@ -29,6 +30,7 @@ var appRoutes: Routes = [
     HeaderComponent,
     TabsComponent,
     TaskTableComponent,
+    FakeColumnComponent,
   ],
   imports: [
     BrowserModule,
