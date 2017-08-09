@@ -1,16 +1,16 @@
 <div>
   <table id="table">
     <tr>
-      <th *ngFor="let col of cols; let i = index" id="th-{{i}}" [width]="colWidths[i]">
-        {{ headers[col] }}
+      <th *ngFor="let header of headers; let i = index" id="th-{{i}}" [width]="colWidths[i]">
+        {{ header }}
         <div id="res-{{i}}" class="resizer" 
           (mousedown)="startResizing(i, $event)"></div>
       </th>
     </tr>
 
-    <tr *ngFor="let row of rows">
-      <td *ngFor="let col of cols; let i = index" id="td-{{i}}" [width]="colWidths[i]">
-        {{ data[row][col] }}
+    <tr *ngFor="let row of data">
+      <td *ngFor="let cell of row; let i = index" id="td-{{i}}" [width]="colWidths[i]">
+        {{ cell }}
       </td>
     </tr>
   </table>

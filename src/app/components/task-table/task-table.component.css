@@ -4,8 +4,6 @@ div {
 }
 
 #table {
-    /*width: 100%;*/
-    /*border: 1px solid #000000;*/
     border-spacing: 0px 5px;
     overflow-x: auto; 
     table-layout: fixed;
@@ -30,7 +28,6 @@ th {
 }
 
 td {
-    /*width: 100px;*/
     background-color: lightblue;
     padding-left: 10px;
     white-space: nowrap; 

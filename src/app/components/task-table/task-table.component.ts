@@ -11,9 +11,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskTableComponent implements OnInit {
 
-  rows: number[];
-  cols: number[];
-
   colWidths: number[];
 
   headers: string[];
@@ -24,23 +21,17 @@ export class TaskTableComponent implements OnInit {
   resizeWidth: number;
   resizeCursor: string;
 
-  // colWidth: number;
-
   constructor() { }
 
   ngOnInit() {
     this.headers = [];
     this.data = [];
-    this.rows = [];
-    this.cols = [];
     this.colWidths = [];
     for(let i=0; i<5; i++){
       this.data[i] = [];
-      this.rows.push(i);
       for(let j=0; j<10; j++){
         if(i==0){
           this.headers[j] = "Header " + j;
-          this.cols.push(j);
           setTimeout(() => {
             // Set heder widths
             let header = document.getElementById("th-" + j);
@@ -48,11 +39,6 @@ export class TaskTableComponent implements OnInit {
             let widthStr = widthPx.substr(0, widthPx.length-2);
             let width = parseInt(widthStr);
             this.colWidths.push(width);
-
-            // let right = header.getBoundingClientRect().right;
-            // console.log(right);
-            // let resizer = document.getElementById("res-" + j);
-            // resizer.style.left = (right-3) + "px";
           }, 100, j);
         }
         this.data[i][j] = "Data " + i + "." + j;
@@ -81,7 +67,7 @@ export class TaskTableComponent implements OnInit {
     // Minimum width necessary to 
     // fit biggest word on column
     let bigWord = this.headers[this.resizing];
-    for(let row=0; row<this.rows.length; row++) {
+    for(let row=0; row<this.data.length; row++) {
       let word = this.getBiggestWord(this.data[row][this.resizing]);
       if(word.length > bigWord.length) bigWord = word;
     }
@@ -102,7 +88,7 @@ export class TaskTableComponent implements OnInit {
 
     // Ajust size of draggers
     let height = this.getStyle(header, "height");
-    for(let i=0; i<this.cols.length; i++) {
+    for(let i=0; i<this.headers.length; i++) {
       let dragger = document.getElementById("res-" + i);
       dragger.style.height = height;
     }
@@ -123,7 +109,7 @@ export class TaskTableComponent implements OnInit {
     let borderSpacingH = borderSpacingStr.split(" ")[0]; // "5px"
     let borderSpacing = borderSpacingH.substr(0, borderSpacingStr.length-2); // "5"
     let borderSpacingN = parseInt(borderSpacing); // 5
-    width += (borderSpacingN)*(this.cols.length+1);
+    width += (borderSpacingN)*(this.headers.length+1);
     table.style.width = width + "px";
     return width;
   }
