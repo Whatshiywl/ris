@@ -1,3 +1,15 @@
-<p>
-  fake-column works!
-</p>
+<div>
+  <table [style.width.px]="width">
+    <tr>
+      <th>
+        <div>{{ header }}</div>
+      </th>
+    </tr>
+
+    <tr *ngFor="let cell of data">
+      <td>
+        <div>{{ cell }}</div>
+      </td>
+    </tr>
+  </table>
+</div>

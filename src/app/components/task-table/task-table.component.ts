@@ -22,6 +22,10 @@ export class TaskTableComponent implements OnInit {
   dragRights: number[];
   dragCursor: string;
 
+  fakeHeader: string;
+  fakeData: string[];
+  fakeWidth: number;
+
   resizing: number;
   resizeFrom: number;
   resizeWidth: number;
@@ -94,6 +98,18 @@ export class TaskTableComponent implements OnInit {
     }
     this.dragCursor = this.getStyle(document.body, "cursor")
     document.body.style.cursor = "ew-resize";
+
+    this.fakeHeader = this.headers[this.dragging];
+    this.fakeData = [];
+    for(let row=0; row<this.data.length; row++) {
+      this.fakeData[row] = this.data[row][this.dragging];
+    }
+    this.fakeWidth = this.colWidths[this.dragging];
+
+    let fkCol = document.getElementById("fk-col");
+    fkCol.style.display = "block";
+    fkCol.style.left = (event.clientX+pageXOffset-this.fakeWidth/2.0) + "px";
+    fkCol.style.top = (event.clientY+pageYOffset-10) + "px";
     event.preventDefault();
   }
 
@@ -112,22 +128,11 @@ export class TaskTableComponent implements OnInit {
     else if(this.resizing != -1) this.onColumnResize(event);
   }
 
-  onHostMouseUp() {
-    if(this.resizing != -1) {
-      this.resizing = -1;
-      document.body.style.cursor = this.resizeCursor;
-      localStorage.setItem("colWidths", JSON.stringify(this.colWidths));
-    }
-
-    if(this.dragging != -1) {
-      this.dragging = -1;
-      this.dragFromIndex = -1;
-      document.body.style.cursor = this.dragCursor;
-      localStorage.setItem("colOrder", JSON.stringify(this.colOrder));
-    }
-  }
-
   onColumnDrag(event) {
+    let fkCol = document.getElementById("fk-col");
+    fkCol.style.left = (event.clientX+pageXOffset-this.fakeWidth/2.0) + "px";
+    fkCol.style.top = (event.clientY+pageYOffset-10) + "px";
+
     let dragToIndex = -1;
     for(let i=0; i<this.dragRights.length; i++){
       let right = this.dragRights[i];
@@ -172,6 +177,24 @@ export class TaskTableComponent implements OnInit {
     for(let i of this.colOrder) {
       let dragger = document.getElementById("res-" + i);
       dragger.style.height = height;
+    }
+  }
+
+  onHostMouseUp() {
+    if(this.resizing != -1) {
+      this.resizing = -1;
+      document.body.style.cursor = this.resizeCursor;
+      localStorage.setItem("colWidths", JSON.stringify(this.colWidths));
+    }
+
+    if(this.dragging != -1) {
+      this.dragging = -1;
+      this.dragFromIndex = -1;
+      document.body.style.cursor = this.dragCursor;
+
+      let fkCol = document.getElementById("fk-col");
+      fkCol.style.display = "none";
+      localStorage.setItem("colOrder", JSON.stringify(this.colOrder));
     }
   }
 
