@@ -21,18 +21,7 @@ th {
     border-style: solid;
     border-width: 0px 1px 1px 0px;
     border-color: #cccccc;
-    white-space: nowrap; 
-    /*overflow: hidden; */ /*Applying this somehow hides resizers from left column*/
-    /*text-overflow: ellipsis;*/
     height: 30px;
-}
-
-td {
-    background-color: lightblue;
-    padding-left: 10px;
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis;
 }
 
 .resizer {
@@ -45,4 +34,15 @@ td {
     height: 30px;
     z-index: 1;
     cursor: col-resize;
+}
+
+td {
+    background-color: lightblue;
+    padding-left: 10px;
+}
+
+th div, td div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

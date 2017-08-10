@@ -3,7 +3,7 @@
     <tr>
       <th *ngFor="let col of colOrder" id="th-{{col}}" 
         [width]="colWidths[col]" (mousedown)="startDragging(col, $event)">
-        {{ headers[col] }}
+        <div *ngIf="1==1">{{ headers[col] }}</div>
         <div id="res-{{col}}" class="resizer" 
           (mousedown)="startResizing(col, $event)"></div>
       </th>
@@ -11,7 +11,7 @@
 
     <tr *ngFor="let row of data">
       <td *ngFor="let col of colOrder" id="td-{{col}}" [width]="colWidths[col]">
-        {{ row[col] }}
+        <div *ngIf="1==1">{{ row[col] }}</div>
       </td>
     </tr>
   </table>

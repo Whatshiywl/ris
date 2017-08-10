@@ -147,7 +147,7 @@ export class TaskTableComponent implements OnInit {
     // Calculate minimum width
     // Minimum width necessary to 
     // fit biggest word on column
-    let bigWord = this.headers[this.resizing];
+    let bigWord = this.getBiggestWord(this.headers[this.resizing]);
     for(let row=0; row<this.data.length; row++) {
       let word = this.getBiggestWord(this.data[row][this.resizing]);
       if(word.length > bigWord.length) bigWord = word;
@@ -159,7 +159,7 @@ export class TaskTableComponent implements OnInit {
     let fSize = this.getStyle(header, "font-size");
     let fFam = this.getStyle(header, "font-family").split(",")[0];
     ctx.font = fSize + " " + "Helvetica Neue";
-    let minWidth = ctx.measureText(bigWord).width + 20; // 20px padding
+    let minWidth = ctx.measureText(bigWord).width + 40; // 20px padding + 20px ellipsis
 
     let newWidth = this.resizeWidth+event.x-this.resizeFrom;
     if(newWidth < minWidth) return;
