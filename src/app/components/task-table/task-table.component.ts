@@ -18,7 +18,8 @@ export class TaskTableComponent implements OnInit {
   data: string[][];
 
   dragging: number;
-  dragFrom: number;
+  dragFromIndex: number;
+  dragRights: number[];
   dragCursor: string;
 
   resizing: number;
@@ -84,7 +85,13 @@ export class TaskTableComponent implements OnInit {
 
   startDragging(i: number, event) {
     this.dragging = i;
-    this.dragFrom = event.x;
+    this.dragRights = [];
+    for(let i=0; i<this.colOrder.length; i++) {
+      let col = this.colOrder[i];
+      if(col == this.dragging) this.dragFromIndex = i;
+      let header = document.getElementById("th-" + col);
+      this.dragRights.push(header.getBoundingClientRect().right);
+    }
     this.dragCursor = this.getStyle(document.body, "cursor")
     document.body.style.cursor = "ew-resize";
     event.preventDefault();
@@ -114,37 +121,26 @@ export class TaskTableComponent implements OnInit {
 
     if(this.dragging != -1) {
       this.dragging = -1;
+      this.dragFromIndex = -1;
       document.body.style.cursor = this.dragCursor;
       localStorage.setItem("colOrder", JSON.stringify(this.colOrder));
     }
   }
 
   onColumnDrag(event) {
-    // Find where mouse.x is
-    let colFromIndex = -1;
-    let colToIndex = -1;
-    let colTo = -1;
-    let headerFrom = document.getElementById("th-" + this.dragging);
-    let leftFrom = headerFrom.getBoundingClientRect().left;
-    let rightFrom = headerFrom.getBoundingClientRect().right;
-    for(let i=0; i<this.colOrder.length; i++) {
-      let col = this.colOrder[i];
-      let headerTo = document.getElementById("th-" + col);
-      let leftTo = headerTo.getBoundingClientRect().left;
-      let rightTo = headerTo.getBoundingClientRect().right;
-      if(rightTo == rightFrom && leftTo == leftFrom) {
-        colFromIndex = i;
-      }
-      if(event.x >= leftTo && event.x < rightTo){
-        colToIndex = i;
-        colTo = col;
+    let dragToIndex = -1;
+    for(let i=0; i<this.dragRights.length; i++){
+      let right = this.dragRights[i];
+      if(event.x < right) {
+        dragToIndex = i;
+        break;
       }
     }
-    if(colFromIndex == -1 || colToIndex == -1 || colFromIndex == colToIndex) return;
-    this.colOrder[colFromIndex] = this.colOrder[colToIndex];
-    this.colOrder[colToIndex] = this.dragging;
-    // this.dragging = this.colOrder[colFromIndex];
-    console.log("colOrder[" + colFromIndex + "] = " + this.dragging + " to colOrder[" + colToIndex + "] = " + colTo);
+    if(this.dragFromIndex == -1 || dragToIndex == -1 || 
+      this.dragFromIndex == dragToIndex) return;
+    this.colOrder[this.dragFromIndex] = this.colOrder[dragToIndex];
+    this.colOrder[dragToIndex] = this.dragging;
+    this.dragFromIndex = dragToIndex;
   }
 
   onColumnResize(event) {
